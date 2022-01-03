@@ -1,11 +1,11 @@
 autetris\st7735.o: ..\Core\Src\st7735.c
-autetris\st7735.o: ..\Core\Inc\st7735.h
-autetris\st7735.o: ..\Core\Inc\fonts.h
+autetris\st7735.o: ../Core/Inc/st7735.h
+autetris\st7735.o: ../Core/Inc/fonts.h
 autetris\st7735.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
-autetris\st7735.o: ..\Core\Inc\st7735_cfg.h
-autetris\st7735.o: ..\Core\Inc\main.h
+autetris\st7735.o: ../Core/Inc/st7735_cfg.h
+autetris\st7735.o: ../Core/Inc/main.h
 autetris\st7735.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h
-autetris\st7735.o: ..\Core\Inc\stm32f1xx_hal_conf.h
+autetris\st7735.o: ../Core/Inc/stm32f1xx_hal_conf.h
 autetris\st7735.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h
 autetris\st7735.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h
 autetris\st7735.o: ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h

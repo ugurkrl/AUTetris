@@ -35,10 +35,10 @@
 #endif
 //Port and pin connected signal 'CS' (chip select) ST7735 display
 #ifndef ST7735_CS_Pin
-#define ST7735_CS_Pin 			GPIO_PIN_9
+#define ST7735_CS_Pin 			GPIO_PIN_10
 #endif
 #ifndef ST7735_CS_GPIO_Port
-#define ST7735_CS_GPIO_Port 	GPIOC
+#define ST7735_CS_GPIO_Port 	GPIOA
 #endif
 //Port and pin connected signal 'BL' (back light) ST7735 display
 #ifndef ST7735_BL_Pin

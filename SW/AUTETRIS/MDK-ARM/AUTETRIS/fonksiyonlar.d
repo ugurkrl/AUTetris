@@ -1,8 +1,8 @@
 autetris\fonksiyonlar.o: ..\Core\Src\fonksiyonlar.c
-autetris\fonksiyonlar.o: ..\Core\Inc\fonksiyonlar.h
+autetris\fonksiyonlar.o: ../Core/Inc/fonksiyonlar.h
 autetris\fonksiyonlar.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 autetris\fonksiyonlar.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h
-autetris\fonksiyonlar.o: ..\Core\Inc\stm32f1xx_hal_conf.h
+autetris\fonksiyonlar.o: ../Core/Inc/stm32f1xx_hal_conf.h
 autetris\fonksiyonlar.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h
 autetris\fonksiyonlar.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h
 autetris\fonksiyonlar.o: ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h
@@ -26,8 +26,8 @@ autetris\fonksiyonlar.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash
 autetris\fonksiyonlar.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h
 autetris\fonksiyonlar.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 autetris\fonksiyonlar.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h
-autetris\fonksiyonlar.o: ..\Core\Inc\st7735.h
-autetris\fonksiyonlar.o: ..\Core\Inc\fonts.h
-autetris\fonksiyonlar.o: ..\Core\Inc\st7735_cfg.h
-autetris\fonksiyonlar.o: ..\Core\Inc\main.h
+autetris\fonksiyonlar.o: ../Core/Inc/st7735.h
+autetris\fonksiyonlar.o: ../Core/Inc/fonts.h
+autetris\fonksiyonlar.o: ../Core/Inc/st7735_cfg.h
+autetris\fonksiyonlar.o: ../Core/Inc/main.h
 autetris\fonksiyonlar.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h

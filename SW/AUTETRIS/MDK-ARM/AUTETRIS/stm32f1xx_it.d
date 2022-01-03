@@ -1,7 +1,7 @@
 autetris\stm32f1xx_it.o: ../Core/Src/stm32f1xx_it.c
-autetris\stm32f1xx_it.o: ..\Core\Inc\main.h
+autetris\stm32f1xx_it.o: ../Core/Inc/main.h
 autetris\stm32f1xx_it.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h
-autetris\stm32f1xx_it.o: ..\Core\Inc\stm32f1xx_hal_conf.h
+autetris\stm32f1xx_it.o: ../Core/Inc/stm32f1xx_hal_conf.h
 autetris\stm32f1xx_it.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h
 autetris\stm32f1xx_it.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h
 autetris\stm32f1xx_it.o: ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h
@@ -26,4 +26,4 @@ autetris\stm32f1xx_it.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash
 autetris\stm32f1xx_it.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h
 autetris\stm32f1xx_it.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 autetris\stm32f1xx_it.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h
-autetris\stm32f1xx_it.o: ..\Core\Inc\stm32f1xx_it.h
+autetris\stm32f1xx_it.o: ../Core/Inc/stm32f1xx_it.h
