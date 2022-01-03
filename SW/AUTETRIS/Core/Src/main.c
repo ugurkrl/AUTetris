@@ -6,12 +6,13 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2022 STMicroelectronics.
-  * All rights reserved.
+  * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
   */
@@ -21,6 +22,11 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "fonts.h"
+#include "st7735.h"
+#include "testimg.h"
+#include "fonksiyonlar.h"
+#include "stdio.h"
 
 /* USER CODE END Includes */
 
@@ -39,10 +45,12 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+
+
 SPI_HandleTypeDef hspi1;
 
 /* USER CODE BEGIN PV */
-
+uint8_t dizi[11][21];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -66,6 +74,8 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 
+    
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -88,17 +98,44 @@ int main(void)
   MX_GPIO_Init();
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
+	
+	ST7735_Init();
+	ST7735_FillScreen(ST7735_BLUE);
+uint8_t  i=0;
 
+
+
+ST7735_DrawImage(32,40,64,64, logo1);
+
+
+		HAL_Delay(100);
+		ST7735_DrawString(10, 120,"basliyor...", Font_7x10,ST7735_BLACK,ST7735_WHITE);
+		HAL_Delay(500);
+		ST7735_FillScreen(ST7735_MAGENTA);
+		
+	ST7735_DrawLine(89,160,89,0,ST7735_BLUE);
+		
+			
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
+   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+		
+	//HAL_RNG_GenerateRandomNumber(&hrng , &sayi);
+	//	sayi=sayi%4;
+		HAL_Delay(100);
+		kare(dizi);
+
+		
+		
   }
+	
+	
   /* USER CODE END 3 */
 }
 

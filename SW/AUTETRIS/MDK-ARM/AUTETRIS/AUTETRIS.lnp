@@ -1,0 +1,27 @@
+--cpu Cortex-M3
+"autetris\startup_stm32f103xb.o"
+"autetris\main.o"
+"autetris\stm32f1xx_it.o"
+"autetris\stm32f1xx_hal_msp.o"
+"autetris\fonksiyonlar.o"
+"autetris\fonts.o"
+"autetris\st7735.o"
+"autetris\stm32f1xx_hal_gpio_ex.o"
+"autetris\stm32f1xx_hal_spi.o"
+"autetris\stm32f1xx_hal.o"
+"autetris\stm32f1xx_hal_rcc.o"
+"autetris\stm32f1xx_hal_rcc_ex.o"
+"autetris\stm32f1xx_hal_gpio.o"
+"autetris\stm32f1xx_hal_dma.o"
+"autetris\stm32f1xx_hal_cortex.o"
+"autetris\stm32f1xx_hal_pwr.o"
+"autetris\stm32f1xx_hal_flash.o"
+"autetris\stm32f1xx_hal_flash_ex.o"
+"autetris\stm32f1xx_hal_exti.o"
+"autetris\stm32f1xx_hal_tim.o"
+"autetris\stm32f1xx_hal_tim_ex.o"
+"autetris\system_stm32f1xx.o"
+--strict --scatter "AUTETRIS\AUTETRIS.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "AUTETRIS.map" -o AUTETRIS\AUTETRIS.axf

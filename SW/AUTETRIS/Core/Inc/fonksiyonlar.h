@@ -12,13 +12,13 @@
 #ifdef __cplusplus
 
 
-extern "C"
+extern "C" 
 #endif
 
-void blokla(uint8_t x,uint8_t y,uint8_t son);
-uint16_t  rekdon(uint16_t islem);
 uint8_t butonbul();
-void  kare(uint8_t dizi[11][20]);
+void kare(uint8_t dizi[11][21]);
+void cubuk(uint8_t dizi[11][21]);
+void cubukdik(uint8_t dizi[11][21]);
 
 
 #endif
