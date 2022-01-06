@@ -1,0 +1,26 @@
+Added Component: Designator=R28(0603 Resistor)
+Add component (AddParameter): Name = "Arrow Part Number"; Value = "CPF0603B100RE1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Arrow Price/Stock"; Value = "https://www.arrow.com/en/products/cpf0603b100re1/te-connectivity"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet Link"; Value = "http://www.farnell.com/datasheets/1786775.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Height"; Value = "0.55mm"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Name"; Value = "TE Connectivity"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer_Part_Number"; Value = "CPF0603B100RE1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Part Number"; Value = "279-CPF0603B100RE1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Mouser Price/Stock"; Value = "https://www.mouser.co.uk/ProductDetail/TE-Connectivity-Neohm/CPF0603B100RE1?qs=DfH2yQaBz6s2KWheq2AlNw%3D%3D"; VariantName = "[No Variations]"
+Added Component: Designator=S8(TACT SWITCH SMD)
+Add component (AddParameter): Name = "Availability"; Value = "Unavailable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MF"; Value = "Omron"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "MP"; Value = "B3F-1000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Price"; Value = "None"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "SnapEDA_Link"; Value = "https://www.snapeda.com/parts/B3F-1000/Omron%20Electronics%20Inc-EMC%20Div/view-part/48569/?ref=snap"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = ""; VariantName = "[No Variations]"
+Added Pin To Net: NetName=3V3 Pin=R28-1
+Added Pin To Net: NetName=GND Pin=S8-2
+Added Pin To Net: NetName=GND Pin=S8-2
+Added Pin To Net: NetName=nRST Pin=R28-2
+Added Pin To Net: NetName=nRST Pin=S8-1
+Added Pin To Net: NetName=nRST Pin=S8-1
+Added Net: Name=nRST
+Added Member To Class: ClassName=Schematic Member=Component R28 4.7K
+Added Member To Class: ClassName=Schematic Member=Component S8 RESET

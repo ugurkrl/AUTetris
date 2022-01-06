@@ -21,24 +21,24 @@
 
 //Port and pin connected signal 'RES' (reset) ST7735 display
 #ifndef ST7735_RES_Pin
-#define ST7735_RES_Pin 			GPIO_PIN_9
+#define ST7735_RES_Pin 			GPIO_PIN_1
 #endif
 #ifndef ST7735_RES_GPIO_Port
-#define ST7735_RES_GPIO_Port 	GPIOA
+#define ST7735_RES_GPIO_Port 	GPIOB
 #endif
 //Port and pin connected signal 'DC' (data or command) ST7735 display
 #ifndef ST7735_DC_Pin
-#define ST7735_DC_Pin 			GPIO_PIN_8
+#define ST7735_DC_Pin 			GPIO_PIN_10
 #endif
 #ifndef ST7735_DC_GPIO_Port
-#define ST7735_DC_GPIO_Port 	GPIOA
+#define ST7735_DC_GPIO_Port 	GPIOB
 #endif
 //Port and pin connected signal 'CS' (chip select) ST7735 display
 #ifndef ST7735_CS_Pin
-#define ST7735_CS_Pin 			GPIO_PIN_10
+#define ST7735_CS_Pin 			GPIO_PIN_11
 #endif
 #ifndef ST7735_CS_GPIO_Port
-#define ST7735_CS_GPIO_Port 	GPIOA
+#define ST7735_CS_GPIO_Port 	GPIOB
 #endif
 //Port and pin connected signal 'BL' (back light) ST7735 display
 #ifndef ST7735_BL_Pin

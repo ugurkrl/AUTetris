@@ -65,12 +65,12 @@ void Error_Handler(void);
 #define SCL_GPIO_Port GPIOA
 #define SDA_Pin GPIO_PIN_7
 #define SDA_GPIO_Port GPIOA
-#define DC_Pin GPIO_PIN_8
-#define DC_GPIO_Port GPIOA
-#define RES_Pin GPIO_PIN_9
-#define RES_GPIO_Port GPIOA
-#define CS_Pin GPIO_PIN_10
-#define CS_GPIO_Port GPIOA
+#define RES_Pin GPIO_PIN_1
+#define RES_GPIO_Port GPIOB
+#define DC_Pin GPIO_PIN_10
+#define DC_GPIO_Port GPIOB
+#define CS_Pin GPIO_PIN_11
+#define CS_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

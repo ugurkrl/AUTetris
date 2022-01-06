@@ -1,0 +1,4 @@
+Removed Pin From Net: NetName=PA8 Pin=*-6
+Added Pin To Net: NetName=PB10 Pin=*-6
+Added Pin To Net: NetName=PB10 Pin=U1-26
+Added Net: Name=PB10
