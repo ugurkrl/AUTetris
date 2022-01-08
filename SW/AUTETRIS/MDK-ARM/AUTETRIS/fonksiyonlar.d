@@ -25,6 +25,8 @@ autetris\fonksiyonlar.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_corte
 autetris\fonksiyonlar.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h
 autetris\fonksiyonlar.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h
 autetris\fonksiyonlar.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
+autetris\fonksiyonlar.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rtc.h
+autetris\fonksiyonlar.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rtc_ex.h
 autetris\fonksiyonlar.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h
 autetris\fonksiyonlar.o: ../Core/Inc/st7735.h
 autetris\fonksiyonlar.o: ../Core/Inc/fonts.h
