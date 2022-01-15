@@ -370,7 +370,6 @@ uint8_t baslangicekrani(){
 	if (butondurum==yukaridugme){
 		zorluk = zorluk+1;
 	}
-	ST7735_DrawString(10, 10,"baslangic ekrani",Font_7x10 ,ST7735_BLUE,ST7735_MAGENTA);
 	switch (zorluk)
 {
     case 1:
@@ -385,7 +384,7 @@ uint8_t baslangicekrani(){
     default:
       
 }
-	ST7735_DrawString(10, 20,baslyazi,Font_7x10 ,ST7735_BLUE,ST7735_MAGENTA);
+	ST7735_DrawString(13, 10,baslyazi,Font_7x10 ,ST7735_BLUE,ST7735_MAGENTA);
 	if (butondurum==Adugme){
 		ST7735_FillScreen(ST7735_MAGENTA);
 		ST7735_DrawLine(89,160,89,0,ST7735_BLUE);

@@ -19,6 +19,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "fatfs.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -27,6 +28,7 @@
 #include "testimg.h"
 #include "fonksiyonlar.h"
 #include "stdio.h"
+#include "fatfs_sd.h"
 #include <stdlib.h>
 #include <time.h>
 /* USER CODE END Includes */
@@ -49,6 +51,7 @@
 RTC_HandleTypeDef hrtc;
 
 SPI_HandleTypeDef hspi1;
+SPI_HandleTypeDef hspi2;
 
 /* USER CODE BEGIN PV */
 uint8_t dizi[11][21];
@@ -58,6 +61,17 @@ uint8_t basla=0;
 char yazi[4];
 char date[10];
 char saat[8];
+char gecici[4];
+RTC_DateTypeDef gDate; 
+RTC_TimeTypeDef gTime; 
+/*fatfs*/
+FATFS fs;
+FATFS *pfs;
+FIL fil;
+FRESULT fres;
+DWORD fre_clust;
+uint32_t tot, fre;
+char buffer[100];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -65,6 +79,7 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_RTC_Init(void);
+static void MX_SPI2_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -73,18 +88,14 @@ static void MX_RTC_Init(void);
 /* USER CODE BEGIN 0 */
 
 
-void get_time(void) 
+void RTCOku(void) 
 { 
- RTC_DateTypeDef gDate; 
- RTC_TimeTypeDef gTime; 
-/* Get the RTC current Time */ 
+ 
  HAL_RTC_GetTime(&hrtc, &gTime, RTC_FORMAT_BIN); 
-/* Get the RTC current Date */ 
  HAL_RTC_GetDate(&hrtc, &gDate, RTC_FORMAT_BIN); 
-/* Display time Format: hh:mm:ss */ 
- sprintf((char*)saat,"%02d:%02d",gTime.Hours, gTime.Minutes); 
-/* Display date Format: dd-mm-yy */ 
+ sprintf((char*)saat,"%02d:%02d",gTime.Hours, gTime.Minutes);  
  sprintf((char*)date,"%02d-%02d-%2d",gDate.Date, gDate.Month, 2000 + gDate.Year); 
+ randomsayi = gTime.Seconds;
 }
 /* USER CODE END 0 */
 
@@ -120,6 +131,8 @@ int main(void)
   MX_GPIO_Init();
   MX_SPI1_Init();
   MX_RTC_Init();
+  MX_SPI2_Init();
+  MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
 	HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,GPIO_PIN_SET);
 	HAL_GPIO_WritePin(LED1_R_GPIO_Port,LED1_R_Pin,GPIO_PIN_RESET);
@@ -131,16 +144,14 @@ int main(void)
 			HAL_GPIO_WritePin(LED3_GPIO_Port,LED3_Pin,GPIO_PIN_SET);
 			
 	ST7735_Init();
-	ST7735_FillScreen(ST7735_BLUE);
+	ST7735_FillScreen(ST7735_WHITE);
 uint8_t  i=0;
 
 
 
-ST7735_DrawImage(32,40,64,64, logo1);
+ST7735_DrawImage(30,52,66,38, logo1);
 
 
-		HAL_Delay(100);
-		ST7735_DrawString(10, 120,"basliyor...", Font_7x10,ST7735_BLACK,ST7735_WHITE);
 		HAL_Delay(500);
 		ST7735_FillScreen(ST7735_MAGENTA);
 		
@@ -148,7 +159,7 @@ ST7735_DrawImage(32,40,64,64, logo1);
 		
 			RTC_DateTypeDef gDate; 
  RTC_TimeTypeDef gTime; 
- 
+	fres = f_mount(&fs, "/", 1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -175,11 +186,11 @@ ST7735_DrawImage(32,40,64,64, logo1);
       break;
     default:
  }
-	get_time();
+	RTCOku();
 	ST7735_DrawString(92, 150,(const char*)saat,Font_7x10 ,ST7735_BLUE,ST7735_MAGENTA);
  
-	
-		randomsayi=rand()%3;
+	 
+		randomsayi=randomsayi%3;
 
 		sprintf(yazi,"%d",skor);
 	ST7735_DrawString(95, 5,"SKOR",Font_7x10 ,ST7735_BLACK,ST7735_MAGENTA);
@@ -200,9 +211,8 @@ ST7735_DrawImage(32,40,64,64, logo1);
 		}
 		if(randomsayi ==2){
 		skor = cubukdik(dizi,skor,delay);
-		}
-	
-	}
+		} 
+}
 	
 	
   /* USER CODE END 3 */
@@ -288,7 +298,7 @@ static void MX_RTC_Init(void)
 
   /** Initialize RTC and set the Time and Date
   */
-  sTime.Hours = 0x0;
+ /* sTime.Hours = 0x0;
   sTime.Minutes = 0x29;
   sTime.Seconds = 0x0;
 
@@ -304,7 +314,7 @@ static void MX_RTC_Init(void)
   if (HAL_RTC_SetDate(&hrtc, &DateToUpdate, RTC_FORMAT_BCD) != HAL_OK)
   {
     Error_Handler();
-  }
+  } */
   /* USER CODE BEGIN RTC_Init 2 */
 
   /* USER CODE END RTC_Init 2 */
@@ -350,6 +360,44 @@ static void MX_SPI1_Init(void)
 }
 
 /**
+  * @brief SPI2 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_SPI2_Init(void)
+{
+
+  /* USER CODE BEGIN SPI2_Init 0 */
+
+  /* USER CODE END SPI2_Init 0 */
+
+  /* USER CODE BEGIN SPI2_Init 1 */
+
+  /* USER CODE END SPI2_Init 1 */
+  /* SPI2 parameter configuration*/
+  hspi2.Instance = SPI2;
+  hspi2.Init.Mode = SPI_MODE_MASTER;
+  hspi2.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi2.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi2.Init.NSS = SPI_NSS_SOFT;
+  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
+  hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi2.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi2.Init.CRCPolynomial = 10;
+  if (HAL_SPI_Init(&hspi2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN SPI2_Init 2 */
+
+  /* USER CODE END SPI2_Init 2 */
+
+}
+
+/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -372,8 +420,8 @@ static void MX_GPIO_Init(void)
                           |LED1_G_Pin|LED1_R_Pin|LED1_B_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, RES_Pin|DC_Pin|CS_Pin|LED3_Pin
-                          |LED2_B_Pin|LED2_G_Pin|LED2_R_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, RES_Pin|DC_Pin|CS_Pin|SD_CS_Pin
+                          |LED3_Pin|LED2_B_Pin|LED2_G_Pin|LED2_R_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : PC13 */
   GPIO_InitStruct.Pin = GPIO_PIN_13;
@@ -397,10 +445,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(A_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : RES_Pin DC_Pin CS_Pin LED3_Pin
-                           LED2_B_Pin LED2_G_Pin LED2_R_Pin */
-  GPIO_InitStruct.Pin = RES_Pin|DC_Pin|CS_Pin|LED3_Pin
-                          |LED2_B_Pin|LED2_G_Pin|LED2_R_Pin;
+  /*Configure GPIO pins : RES_Pin DC_Pin CS_Pin SD_CS_Pin
+                           LED3_Pin LED2_B_Pin LED2_G_Pin LED2_R_Pin */
+  GPIO_InitStruct.Pin = RES_Pin|DC_Pin|CS_Pin|SD_CS_Pin
+                          |LED3_Pin|LED2_B_Pin|LED2_G_Pin|LED2_R_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
