@@ -28,6 +28,7 @@
 #include "testimg.h"
 #include "fonksiyonlar.h"
 #include "stdio.h"
+#include "HDQ.h"
 #include "fatfs_sd.h"
 #include <stdlib.h>
 #include <time.h>
@@ -53,6 +54,8 @@ RTC_HandleTypeDef hrtc;
 SPI_HandleTypeDef hspi1;
 SPI_HandleTypeDef hspi2;
 
+TIM_HandleTypeDef htim1;
+
 /* USER CODE BEGIN PV */
 uint8_t dizi[11][21];
 uint16_t randomsayi=0;
@@ -61,9 +64,12 @@ uint8_t basla=0;
 char yazi[4];
 char date[10];
 char saat[8];
+char yuzde[3];
 char gecici[4];
 RTC_DateTypeDef gDate; 
 RTC_TimeTypeDef gTime; 
+uint8_t LSB,MSB;
+uint16_t SOC=0;
 /*fatfs*/
 FATFS fs;
 FATFS *pfs;
@@ -80,13 +86,13 @@ static void MX_GPIO_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_RTC_Init(void);
 static void MX_SPI2_Init(void);
+static void MX_TIM1_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
 
 void RTCOku(void) 
 { 
@@ -133,6 +139,7 @@ int main(void)
   MX_RTC_Init();
   MX_SPI2_Init();
   MX_FATFS_Init();
+  MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
 	HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,GPIO_PIN_SET);
 	HAL_GPIO_WritePin(LED1_R_GPIO_Port,LED1_R_Pin,GPIO_PIN_RESET);
@@ -142,7 +149,7 @@ int main(void)
 			HAL_GPIO_WritePin(LED2_G_GPIO_Port,LED2_G_Pin,GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(LED2_B_GPIO_Port,LED2_B_Pin,GPIO_PIN_RESET);
 			HAL_GPIO_WritePin(LED3_GPIO_Port,LED3_Pin,GPIO_PIN_SET);
-			
+			DWT_Delay_Init();
 	ST7735_Init();
 	ST7735_FillScreen(ST7735_WHITE);
 uint8_t  i=0;
@@ -159,7 +166,9 @@ ST7735_DrawImage(30,52,66,38, logo1);
 		
 			RTC_DateTypeDef gDate; 
  RTC_TimeTypeDef gTime; 
-	fres = f_mount(&fs, "/", 1);
+
+	
+		
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -187,14 +196,22 @@ ST7735_DrawImage(30,52,66,38, logo1);
     default:
  }
 	RTCOku();
+    LSB = HDQ_read(0x2c);
+    MSB = HDQ_read(0x2d);
+    SOC = ( MSB << 8 ) + LSB;
+		if(0<SOC && SOC<=100){
+		sprintf(yuzde,"%%%d",SOC);
+		}
 	ST7735_DrawString(92, 150,(const char*)saat,Font_7x10 ,ST7735_BLUE,ST7735_MAGENTA);
- 
-	 
-		randomsayi=randomsayi%3;
+		
 
+
+		randomsayi=randomsayi%3;
+		ST7735_DrawString(98, 140,yuzde,Font_7x10 ,ST7735_BLUE,ST7735_MAGENTA);
+	
 		sprintf(yazi,"%d",skor);
 	ST7735_DrawString(95, 5,"SKOR",Font_7x10 ,ST7735_BLACK,ST7735_MAGENTA);
-	
+
  
   
 	if(skor==0){
@@ -212,6 +229,7 @@ ST7735_DrawImage(30,52,66,38, logo1);
 		if(randomsayi ==2){
 		skor = cubukdik(dizi,skor,delay);
 		} 
+		
 }
 	
 	
@@ -248,7 +266,7 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV2;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
@@ -298,7 +316,7 @@ static void MX_RTC_Init(void)
 
   /** Initialize RTC and set the Time and Date
   */
- /* sTime.Hours = 0x0;
+  sTime.Hours = 0x0;
   sTime.Minutes = 0x29;
   sTime.Seconds = 0x0;
 
@@ -314,7 +332,7 @@ static void MX_RTC_Init(void)
   if (HAL_RTC_SetDate(&hrtc, &DateToUpdate, RTC_FORMAT_BCD) != HAL_OK)
   {
     Error_Handler();
-  } */
+  }
   /* USER CODE BEGIN RTC_Init 2 */
 
   /* USER CODE END RTC_Init 2 */
@@ -398,6 +416,52 @@ static void MX_SPI2_Init(void)
 }
 
 /**
+  * @brief TIM1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM1_Init(void)
+{
+
+  /* USER CODE BEGIN TIM1_Init 0 */
+
+  /* USER CODE END TIM1_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM1_Init 1 */
+
+  /* USER CODE END TIM1_Init 1 */
+  htim1.Instance = TIM1;
+  htim1.Init.Prescaler = 36-1;
+  htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim1.Init.Period = 65535-1;
+  htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim1.Init.RepetitionCounter = 0;
+  htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim1, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM1_Init 2 */
+
+  /* USER CODE END TIM1_Init 2 */
+
+}
+
+/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -413,22 +477,13 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
-
-  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, SOL_Pin|SAG_Pin|YUKARI_Pin|ASAGI_Pin
                           |LED1_G_Pin|LED1_R_Pin|LED1_B_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, RES_Pin|DC_Pin|CS_Pin|SD_CS_Pin
-                          |LED3_Pin|LED2_B_Pin|LED2_G_Pin|LED2_R_Pin, GPIO_PIN_RESET);
-
-  /*Configure GPIO pin : PC13 */
-  GPIO_InitStruct.Pin = GPIO_PIN_13;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+                          |LED3_Pin|LED2_B_Pin|LED2_G_Pin|LED2_R_Pin
+                          |HDQ_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : SOL_Pin SAG_Pin YUKARI_Pin ASAGI_Pin
                            LED1_G_Pin LED1_R_Pin LED1_B_Pin */
@@ -446,9 +501,11 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(A_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : RES_Pin DC_Pin CS_Pin SD_CS_Pin
-                           LED3_Pin LED2_B_Pin LED2_G_Pin LED2_R_Pin */
+                           LED3_Pin LED2_B_Pin LED2_G_Pin LED2_R_Pin
+                           HDQ_Pin */
   GPIO_InitStruct.Pin = RES_Pin|DC_Pin|CS_Pin|SD_CS_Pin
-                          |LED3_Pin|LED2_B_Pin|LED2_G_Pin|LED2_R_Pin;
+                          |LED3_Pin|LED2_B_Pin|LED2_G_Pin|LED2_R_Pin
+                          |HDQ_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

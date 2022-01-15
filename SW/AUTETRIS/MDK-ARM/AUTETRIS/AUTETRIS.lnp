@@ -3,6 +3,8 @@
 "autetris\fonksiyonlar.o"
 "autetris\fonts.o"
 "autetris\st7735.o"
+"autetris\hdq.o"
+"autetris\dwt_stm32_delay.o"
 "autetris\main.o"
 "autetris\stm32f1xx_it.o"
 "autetris\stm32f1xx_hal_msp.o"

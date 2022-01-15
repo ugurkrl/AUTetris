@@ -32,6 +32,8 @@ autetris\fatfs.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 autetris\fatfs.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rtc.h
 autetris\fatfs.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rtc_ex.h
 autetris\fatfs.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h
+autetris\fatfs.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
+autetris\fatfs.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 autetris\fatfs.o: ../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h
 autetris\fatfs.o: ../Middlewares/Third_Party/FatFs/src/diskio.h
 autetris\fatfs.o: ../FATFS/Target/user_diskio.h

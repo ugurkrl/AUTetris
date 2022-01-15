@@ -31,5 +31,7 @@ autetris\ff.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 autetris\ff.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rtc.h
 autetris\ff.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rtc_ex.h
 autetris\ff.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h
+autetris\ff.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
+autetris\ff.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 autetris\ff.o: ../Middlewares/Third_Party/FatFs/src/diskio.h
 autetris\ff.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h

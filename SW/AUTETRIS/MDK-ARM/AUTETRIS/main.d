@@ -28,6 +28,8 @@ autetris\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 autetris\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rtc.h
 autetris\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rtc_ex.h
 autetris\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h
+autetris\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h
+autetris\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h
 autetris\main.o: ../FATFS/App/fatfs.h
 autetris\main.o: ../Middlewares/Third_Party/FatFs/src/ff.h
 autetris\main.o: ../Middlewares/Third_Party/FatFs/src/integer.h
@@ -42,6 +44,8 @@ autetris\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 autetris\main.o: ../Core/Inc/testimg.h
 autetris\main.o: ../Core/Inc/fonksiyonlar.h
 autetris\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+autetris\main.o: ../Core/Inc/HDQ.h
+autetris\main.o: ../Core/Inc/dwt_stm32_delay.h
 autetris\main.o: ../Core/Inc/fatfs_sd.h
 autetris\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 autetris\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\time.h
