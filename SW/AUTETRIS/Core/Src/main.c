@@ -25,7 +25,7 @@
 /* USER CODE BEGIN Includes */
 #include "fonts.h"
 #include "st7735.h"
-#include "testimg.h"
+#include "img.h"
 #include "fonksiyonlar.h"
 #include "stdio.h"
 #include "HDQ.h"
@@ -142,13 +142,7 @@ int main(void)
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
 	HAL_GPIO_WritePin(GPIOC,GPIO_PIN_13,GPIO_PIN_SET);
-	HAL_GPIO_WritePin(LED1_R_GPIO_Port,LED1_R_Pin,GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(LED1_G_GPIO_Port,LED1_G_Pin,GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(LED1_B_GPIO_Port,LED1_B_Pin,GPIO_PIN_RESET);
-			HAL_GPIO_WritePin(LED2_R_GPIO_Port,LED2_R_Pin,GPIO_PIN_RESET);
-			HAL_GPIO_WritePin(LED2_G_GPIO_Port,LED2_G_Pin,GPIO_PIN_RESET);
-			HAL_GPIO_WritePin(LED2_B_GPIO_Port,LED2_B_Pin,GPIO_PIN_RESET);
-			HAL_GPIO_WritePin(LED3_GPIO_Port,LED3_Pin,GPIO_PIN_SET);
+	
 			DWT_Delay_Init();
 	ST7735_Init();
 	ST7735_FillScreen(ST7735_WHITE);
@@ -157,9 +151,9 @@ uint8_t  i=0;
 
 
 ST7735_DrawImage(30,52,66,38, logo1);
-
-
-		HAL_Delay(500);
+    ledDemo();
+HAL_GPIO_WritePin(LED2_R_GPIO_Port,LED2_R_Pin,GPIO_PIN_RESET);
+HAL_GPIO_WritePin(LED1_B_GPIO_Port,LED1_B_Pin,GPIO_PIN_RESET);
 		ST7735_FillScreen(ST7735_MAGENTA);
 		
 	
@@ -211,9 +205,6 @@ ST7735_DrawImage(30,52,66,38, logo1);
 	
 		sprintf(yazi,"%d",skor);
 	ST7735_DrawString(95, 5,"SKOR",Font_7x10 ,ST7735_BLACK,ST7735_MAGENTA);
-
- 
-  
 	if(skor==0){
 	ST7735_DrawString(105, 16,(const char*)yazi, Font_11x18,ST7735_BLUE,ST7735_MAGENTA);
 	}
@@ -477,18 +468,22 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, SOL_Pin|SAG_Pin|YUKARI_Pin|ASAGI_Pin
-                          |LED1_G_Pin|LED1_R_Pin|LED1_B_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, SOL_Pin|SAG_Pin|YUKARI_Pin|ASAGI_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, RES_Pin|DC_Pin|CS_Pin|SD_CS_Pin
-                          |LED3_Pin|LED2_B_Pin|LED2_G_Pin|LED2_R_Pin
-                          |HDQ_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, B_Pin|RES_Pin|DC_Pin|CS_Pin
+                          |SD_CS_Pin|LED3_Pin|HDQ_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, LED1_G_Pin|LED1_B_Pin|LED1_R_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, LED2_R_Pin|LED2_G_Pin|LED2_B_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pins : SOL_Pin SAG_Pin YUKARI_Pin ASAGI_Pin
-                           LED1_G_Pin LED1_R_Pin LED1_B_Pin */
+                           LED1_G_Pin LED1_B_Pin LED1_R_Pin */
   GPIO_InitStruct.Pin = SOL_Pin|SAG_Pin|YUKARI_Pin|ASAGI_Pin
-                          |LED1_G_Pin|LED1_R_Pin|LED1_B_Pin;
+                          |LED1_G_Pin|LED1_B_Pin|LED1_R_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -500,12 +495,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(A_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : RES_Pin DC_Pin CS_Pin SD_CS_Pin
-                           LED3_Pin LED2_B_Pin LED2_G_Pin LED2_R_Pin
-                           HDQ_Pin */
-  GPIO_InitStruct.Pin = RES_Pin|DC_Pin|CS_Pin|SD_CS_Pin
-                          |LED3_Pin|LED2_B_Pin|LED2_G_Pin|LED2_R_Pin
-                          |HDQ_Pin;
+  /*Configure GPIO pins : B_Pin RES_Pin DC_Pin CS_Pin
+                           SD_CS_Pin LED3_Pin LED2_R_Pin LED2_G_Pin
+                           LED2_B_Pin HDQ_Pin */
+  GPIO_InitStruct.Pin = B_Pin|RES_Pin|DC_Pin|CS_Pin
+                          |SD_CS_Pin|LED3_Pin|LED2_R_Pin|LED2_G_Pin
+                          |LED2_B_Pin|HDQ_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

@@ -71,6 +71,8 @@ void Error_Handler(void);
 #define A_GPIO_Port GPIOA
 #define SDA_Pin GPIO_PIN_7
 #define SDA_GPIO_Port GPIOA
+#define B_Pin GPIO_PIN_0
+#define B_GPIO_Port GPIOB
 #define RES_Pin GPIO_PIN_1
 #define RES_GPIO_Port GPIOB
 #define DC_Pin GPIO_PIN_10
@@ -81,18 +83,18 @@ void Error_Handler(void);
 #define SD_CS_GPIO_Port GPIOB
 #define LED1_G_Pin GPIO_PIN_11
 #define LED1_G_GPIO_Port GPIOA
-#define LED1_R_Pin GPIO_PIN_12
-#define LED1_R_GPIO_Port GPIOA
-#define LED1_B_Pin GPIO_PIN_15
+#define LED1_B_Pin GPIO_PIN_12
 #define LED1_B_GPIO_Port GPIOA
+#define LED1_R_Pin GPIO_PIN_15
+#define LED1_R_GPIO_Port GPIOA
 #define LED3_Pin GPIO_PIN_3
 #define LED3_GPIO_Port GPIOB
-#define LED2_B_Pin GPIO_PIN_4
-#define LED2_B_GPIO_Port GPIOB
+#define LED2_R_Pin GPIO_PIN_4
+#define LED2_R_GPIO_Port GPIOB
 #define LED2_G_Pin GPIO_PIN_5
 #define LED2_G_GPIO_Port GPIOB
-#define LED2_R_Pin GPIO_PIN_6
-#define LED2_R_GPIO_Port GPIOB
+#define LED2_B_Pin GPIO_PIN_6
+#define LED2_B_GPIO_Port GPIOB
 #define HDQ_Pin GPIO_PIN_9
 #define HDQ_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */

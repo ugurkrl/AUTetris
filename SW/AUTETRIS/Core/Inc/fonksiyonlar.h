@@ -20,5 +20,5 @@ uint16_t kare(uint8_t dizi[11][21],uint16_t skor,uint8_t delay);
 uint16_t cubuk(uint8_t dizi[11][21],uint16_t skor,uint8_t delay);
 uint16_t cubukdik(uint8_t dizi[11][21],uint16_t skor,uint8_t delay);
 uint8_t baslangicekrani();
-
+void ledDemo();
 #endif

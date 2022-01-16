@@ -20,15 +20,14 @@ uint16_t kare(uint8_t dizi[11][21],uint16_t skor,uint8_t delay){
 	for(int y=-1;y<20;y++){
 		int a = butonbul(); //dügme oku
 		if(a==sagdugme){ //dügme sag
-			if(!(dizi[x+2][y]==1)){ //sagdaki blok dolu ise gitme
+			if(!(dizi[x+2][y]==1)){ //sagdaki blok dolu ise saga gitme
 			if(x>8){
 				x=8;
-
 			}
 			HAL_Delay(10);
 			x=x+1;
-			ST7735_FillRectangle(((x-1)*8)+1,((y)*8),7,15,arkaplan);
-			y=y-1;
+			ST7735_FillRectangle(((x-1)*8)+1,((y)*8),7,15,arkaplan); //saga gidince solda kalan blogu sil
+			y=y-1; 
 		}
 	}
 		
@@ -91,7 +90,7 @@ uint16_t kare(uint8_t dizi[11][21],uint16_t skor,uint8_t delay){
 
 				 dizi[i][n]=dizi[i][n-1];
 			 dizi[i][n-1]=0;
-				 	ST7735_FillRectangle(0,((n)*8),89,7,arkaplan);
+
 
 				if(dizi[i][n]==1){ //kaydirilan x leri ciz
 					ST7735_FillRectangle((i*8)+1,((n+1)*8),7,7,blokrengi);
@@ -195,7 +194,7 @@ uint16_t cubuk(uint8_t dizi[11][21],uint16_t skor,uint8_t delay){
 
 				 dizi[i][n]=dizi[i][n-1];
 			 dizi[i][n-1]=0;
-				 	ST7735_FillRectangle(0,((n)*8),89,7,arkaplan);
+
 
 				if(dizi[i][n]==1){ //kaydirilan x leri ciz
 					ST7735_FillRectangle((i*8)+1,((n+1)*8),7,7,blokrengi);
@@ -257,22 +256,16 @@ uint16_t cubukdik(uint8_t dizi[11][21],uint16_t skor,uint8_t delay){
 		 }
 
 		
-		if(!(dizi[x][y+3] ==1)){
+		if(!(dizi[x][y+3] ==1)){ //indirilen bloklar dolu mu kontrol et , degilse indir
 		HAL_Delay(delay);
-
-
-
-		ST7735_FillRectangle((x*8)+1,((y+1)*8),7,7,blokrengi);
-		ST7735_FillRectangle(((x)*8)+1,((y+2)*8),7,7,blokrengi);
-		ST7735_FillRectangle(((x)*8)+1,((y+3)*8),7,7,blokrengi);
-		ST7735_FillRectangle(((x)*8)+1,((y+4)*8),7,7,blokrengi);
-		ST7735_FillRectangle((x*8)+1,((y)*8),7,7,arkaplan);
-
-			
-			
-
+		
+		ST7735_FillRectangle((x*8)+1,((y+1)*8),7,7,blokrengi); //1. kare
+		ST7735_FillRectangle(((x)*8)+1,((y+2)*8),7,7,blokrengi); //2. kare
+		ST7735_FillRectangle(((x)*8)+1,((y+3)*8),7,7,blokrengi); //3. kare
+		ST7735_FillRectangle(((x)*8)+1,((y+4)*8),7,7,blokrengi); //4. kare
+		ST7735_FillRectangle((x*8)+1,((y)*8),7,7,arkaplan); //önceki döngüdeki kareyi sil
 		}
-		else{
+		else{ //bloklar oturursa diziyi doldur
 		dizi[x][y-1]=1;
 		dizi[x][y]=1;
 		dizi[x][y+1]=1;
@@ -281,38 +274,29 @@ uint16_t cubukdik(uint8_t dizi[11][21],uint16_t skor,uint8_t delay){
 		}
 		uint8_t m=18;
 		uint8_t sayac=0;
-
-		for(int m=18;m>0;m--){
-		for(int i=0;i<11;i++){
-
-			if(dizi[i][m]!=0){
-
-			sayac+=1;
-
-			if(sayac==11){
-				skor = skor + 10;
-				sayac=0;
-				for(int n=m;n>=0;n--){
-				ST7735_FillRectangle(0,((n+1)*8),89,7,arkaplan); //satir sil
-
-
-				for(int i=0;i<11;i++){ //her bir x i bir asagi kaydir
-
-				 dizi[i][n]=dizi[i][n-1];
-			 dizi[i][n-1]=0;
-				 	ST7735_FillRectangle(0,((n)*8),89,7,arkaplan);
-
-				if(dizi[i][n]==1){ //kaydirilan x leri ciz
+		for(int m=18;m>0;m--){ //dikey olarak kontrol et
+		for(int i=0;i<11;i++){ //yatay olarak kontrol et
+			if(dizi[i][m]!=0){ //bloklar dolu mu?
+			sayac+=1; //dolu ise sayaci arttir
+			if(sayac==11){ //yatay olarak 11 blok dolu ise;
+				skor = skor + 10; // 1:skoru arttir
+				sayac=0;// 2: sayaci sifirla
+				for(int n=m;n>=0;n--){ //silinen satirdan en üst satira kadar;
+					ST7735_FillRectangle(0,((n+1)*8),89,7,arkaplan); //1:biten satiri sil
+					for(int i=0;i<11;i++){ 
+						dizi[i][n]=dizi[i][n-1];//2:her bir x i bir asagi kaydir
+						dizi[i][n-1]=0;//3: dizide üstteki x'i sil
+						if(dizi[i][n]==1){ //4. asagi kaydirilan x leri ciz
 					ST7735_FillRectangle((i*8)+1,((n+1)*8),7,7,blokrengi);
+							 }
+							}
+						}
 					}
 				}
 			}
-		}
-	}
-}
 		sayac=0;
 
-}
+		}
 		for(int x=0;x<11;x++){
 		if(dizi[x][0] == 1){
 		//	ST7735_DrawString(10, 120,"Oyun Bitti", Font_7x10,ST7735_BLACK,ST7735_WHITE);
@@ -382,7 +366,6 @@ uint8_t baslangicekrani(){
 			sprintf(baslyazi ,"ZORLUK : ZOR  ");
       break;
     default:
-      
 }
 	ST7735_DrawString(13, 10,baslyazi,Font_7x10 ,ST7735_BLUE,ST7735_MAGENTA);
 	if (butondurum==Adugme){
@@ -391,4 +374,28 @@ uint8_t baslangicekrani(){
 		return zorluk;
 	}
 	return 0;
+}
+void ledDemo(){
+	HAL_GPIO_WritePin(LED2_R_GPIO_Port,LED2_R_Pin,GPIO_PIN_RESET);
+	HAL_Delay(500);
+	HAL_GPIO_WritePin(LED2_R_GPIO_Port,LED2_R_Pin,GPIO_PIN_SET);
+	HAL_GPIO_WritePin(LED2_G_GPIO_Port,LED2_G_Pin,GPIO_PIN_RESET);
+	HAL_Delay(500);
+	HAL_GPIO_WritePin(LED2_G_GPIO_Port,LED2_G_Pin,GPIO_PIN_SET);
+	HAL_GPIO_WritePin(LED2_B_GPIO_Port,LED2_B_Pin,GPIO_PIN_RESET);
+	HAL_Delay(500);
+	HAL_GPIO_WritePin(LED2_B_GPIO_Port,LED2_B_Pin,GPIO_PIN_SET);
+	HAL_GPIO_WritePin(LED3_GPIO_Port,LED3_Pin,GPIO_PIN_SET);
+	HAL_Delay(500);
+	HAL_GPIO_WritePin(LED3_GPIO_Port,LED3_Pin,GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(LED1_R_GPIO_Port,LED1_R_Pin,GPIO_PIN_RESET);
+	HAL_Delay(500);
+	HAL_GPIO_WritePin(LED1_R_GPIO_Port,LED1_R_Pin,GPIO_PIN_SET);
+	HAL_GPIO_WritePin(LED1_G_GPIO_Port,LED1_G_Pin,GPIO_PIN_RESET);
+	HAL_Delay(500);
+	HAL_GPIO_WritePin(LED1_G_GPIO_Port,LED1_G_Pin,GPIO_PIN_SET);
+	HAL_GPIO_WritePin(LED1_B_GPIO_Port,LED1_B_Pin,GPIO_PIN_RESET);
+	HAL_Delay(500);
+	HAL_GPIO_WritePin(LED1_B_GPIO_Port,LED1_B_Pin,GPIO_PIN_SET);
+
 }

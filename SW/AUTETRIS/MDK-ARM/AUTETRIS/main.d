@@ -41,7 +41,7 @@ autetris\main.o: ../Core/Inc/fonts.h
 autetris\main.o: ../Core/Inc/st7735.h
 autetris\main.o: ../Core/Inc/st7735_cfg.h
 autetris\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
-autetris\main.o: ../Core/Inc/testimg.h
+autetris\main.o: ../Core/Inc/img.h
 autetris\main.o: ../Core/Inc/fonksiyonlar.h
 autetris\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 autetris\main.o: ../Core/Inc/HDQ.h
